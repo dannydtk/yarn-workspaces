@@ -1,17 +1,24 @@
 {
   "name": "yarn-workspaces",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
-  "packageManager": "yarn@4.1.1",
+  "license": "MIT",
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "format": "prettier --write .",
+    "lint": "yarn workspaces foreach -Ap run lint"
+  },
+  "prettier": "@vercel/style-guide/prettier",
   "devDependencies": {
     "@types/eslint": "^8.56.5",
+    "@vercel/style-guide": "^6.0.0",
     "eslint": "^8.57.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.1",
     "prettier": "^3.2.5",
     "typescript": "^5.3.3"
-  }
+  },
+  "packageManager": "yarn@4.1.1"
 }
