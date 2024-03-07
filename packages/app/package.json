@@ -1,14 +1,16 @@
 {
-  "name": "@yarn-workspaces/app",
+  "name": "@yarn-workspaces/browser-app",
+  "version": "0.0.1",
   "private": true,
-  "version": "0.0.0",
+  "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "tsc && vite build",
+    "dev": "vite",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "prettier": "@vercel/style-guide/prettier",
   "dependencies": {
     "@yarn-workspaces/lib": "workspace:*",
     "react": "^18.2.0",
@@ -20,7 +22,9 @@
     "@types/react-dom": "^18.2.20",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
+    "@vercel/style-guide": "^6.0.0",
     "@vitejs/plugin-react": "^4.2.1",
+    "@vitejs/plugin-react-swc": "^3.6.0",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",

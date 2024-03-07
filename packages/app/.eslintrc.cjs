@@ -1,18 +1,54 @@
+const { resolve } = require('node:path');
+
+const project = [resolve(__dirname, 'tsconfig.json'), resolve(__dirname, 'tsconfig.node.json')];
+
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
   extends: [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react-hooks/recommended",
+    require.resolve('@vercel/style-guide/eslint/browser'),
+    require.resolve('@vercel/style-guide/eslint/typescript'),
+    require.resolve('@vercel/style-guide/eslint/react'),
   ],
-  ignorePatterns: ["dist", ".eslintrc.cjs"],
-  parser: "@typescript-eslint/parser",
-  plugins: ["react-refresh"],
-  rules: {
-    "react-refresh/only-export-components": [
-      "warn",
-      { allowConstantExport: true },
-    ],
+  parserOptions: {
+    ecmaVersion: "latest",
+    sourceType: "module",
+    project,
+    tsconfigRootDir: __dirname,
   },
+  settings: {
+    'import/resolver': {
+      typescript: {
+        project,
+      },
+    },
+  },
+  ignorePatterns: [".eslintrc.cjs"],
+  overrides: [
+    {
+      files: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+      extends: [require.resolve('@vercel/style-guide/eslint/jest'), require.resolve('@vercel/style-guide/eslint/jest-react')],
+    },
+    {
+      files: [`**/*.[jt]sx`],
+      rules: {
+        'unicorn/filename-case': [
+          'error',
+          {
+            cases: {
+              kebabCase: true,
+              pascalCase: true,
+            }
+          }
+        ],
+        'import/no-absolute-path': 'off'
+      }
+    },
+    {
+      files: ['vite.config.ts'],
+      rules: {
+        'import/no-default-export': 'off',
+      },
+    }
+  ],
 };
